@@ -1,111 +1,159 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Trương Nguyễn Tường Vy</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Trương Nguyễn Trường Vy · Dọc</title>
     <style>
-        /* CSS style to keep the animated letter effect intact */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            user-select: none; /* mượt khi chạm */
         }
 
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            /* nền gradient tinh tế, nhẹ nhàng nhưng hiện đại */
+            background: radial-gradient(circle at 20% 30%, #0b1120, #07111f);
             min-height: 100vh;
-            background: linear-gradient(135deg, #0a0f1e, #0a1a2a);
-            font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, 'Montserrat', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: system-ui, 'Segoe UI', 'SF Pro Text', 'Poppins', 'Montserrat', sans-serif;
+            padding: 24px 16px;
         }
 
-        h2 {
-            position: relative;
-            font-size: clamp(1.8rem, 8vw, 4.2rem);
+        /* container dọc chính – chiếm toàn bộ chiều cao màn hình nhỏ (điện thoại) */
+        .vertical-name {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.2rem;
+            width: 100%;
+            max-width: 380px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        /* mỗi dòng là 1 từ (khối chữ) */
+        .name-block {
+            display: block;
+            text-align: center;
             font-weight: 700;
             letter-spacing: 2px;
-            text-transform: uppercase;
-            margin: 0;
-            padding: 0 20px;
-        }
-
-        h2 a {
-            position: relative;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        h2 a span {
-            position: relative;
-            display: inline-block;
-            color: #fff;
-            animation: waveGlow 1.5s ease-in-out infinite;
-            animation-delay: calc(0.05s * var(--i));
-            text-shadow: 0 0 5px #00a6ff, 0 0 15px #00e0ff, 0 0 25px #00ccff;
+            width: 100%;
             transition: all 0.2s ease;
-            font-weight: 700;
         }
 
-        /* Elegant wave + floating animation */
-        @keyframes waveGlow {
-            0%, 100% {
-                transform: translateY(0px);
-                text-shadow: 0 0 5px #00a6ff, 0 0 10px #00e0ff;
+        /* hiệu ứng chữ riêng cho từng dòng, giống phong cách lung linh nhưng không rối */
+        .name-block span {
+            display: inline-block;
+            font-size: clamp(2.8rem, 12vw, 5rem);
+            background: linear-gradient(135deg, #ffffff, #c0e0ff, #a0d0ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 12px rgba(0, 180, 255, 0.5);
+            transition: transform 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        /* hiệu ứng nhẹ khi chạm / hover (trên mobile vẫn có active) */
+        .name-block:active span {
+            transform: scale(0.97);
+            text-shadow: 0 0 20px #6bc6ff;
+        }
+
+        /* riêng dòng "Vy" có thể điểm nhấn nhẹ */
+        .name-block:last-child span {
+            background: linear-gradient(135deg, #ffdfb8, #ffb8e0, #ff9ed0);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px #ff8dd0;
+        }
+
+        /* decoration: dấu chấm hoặc đường kẻ mờ giúp căn chỉnh thị giác */
+        .vertical-name::before {
+            content: '✦';
+            font-size: 1.4rem;
+            color: rgba(100, 200, 255, 0.4);
+            letter-spacing: 4px;
+            margin-bottom: 0.2rem;
+        }
+
+        .vertical-name::after {
+            content: '✦';
+            font-size: 1.4rem;
+            color: rgba(100, 200, 255, 0.4);
+            margin-top: 0.2rem;
+        }
+
+        /* tăng khoảng cách giữa các chữ cho dễ nhìn, phù hợp khung dọc */
+        @media (max-width: 480px) {
+            .vertical-name {
+                gap: 0.9rem;
             }
-            50% {
-                transform: translateY(-12px);
-                text-shadow: 0 0 15px #ff66cc, 0 0 25px #ff44aa, 0 0 35px #ff88ff;
-                color: #fff5e0;
+            .name-block span {
+                font-size: clamp(2.5rem, 10vw, 4rem);
             }
         }
 
-        /* subtle hover effect on whole name */
-        h2 a:hover span {
-            animation-play-state: running;
-            filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.6));
+        /* đảm bảo trên màn hình rất nhỏ vẫn đẹp */
+        @media (max-width: 360px) {
+            .vertical-name {
+                gap: 0.7rem;
+            }
         }
 
-        /* Responsive adjustments */
-        @media (max-width: 550px) {
-            h2 a span {
-                animation-duration: 1.2s;
+        /* thêm hiệu ứng fade-in cho từng dòng khi load */
+        .name-block {
+            opacity: 0;
+            animation: slideUpFade 0.45s ease forwards;
+        }
+
+        .name-block:nth-child(1) { animation-delay: 0.05s; }
+        .name-block:nth-child(2) { animation-delay: 0.15s; }
+        .name-block:nth-child(3) { animation-delay: 0.25s; }
+        .name-block:nth-child(4) { animation-delay: 0.35s; }
+
+        @keyframes slideUpFade {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
             }
-            h2 {
-                text-align: center;
+            100% {
+                opacity: 1;
+                transform: translateY(0);
             }
+        }
+
+        /* tuỳ chọn background mượt hơn, không gây chói */
+        html {
+            -webkit-tap-highlight-color: transparent;
         }
     </style>
 </head>
 <body>
-    <h2>
-        <a href="#">
-            <!-- Updated name: Trương Nguyễn Tường Vy -->
-            <span style="--i:1">T</span>
-            <span style="--i:2">r</span>
-            <span style="--i:3">ư</span>
-            <span style="--i:4">ơ</span>
-            <span style="--i:5">n</span>
-            <span style="--i:6">g</span>
-            <span style="--i:7"> </span>
-            <span style="--i:8">N</span>
-            <span style="--i:9">g</span>
-            <span style="--i:10">u</span>
-            <span style="--i:11">y</span>
-            <span style="--i:12">ễ</span>
-            <span style="--i:13">n</span>
-            <span style="--i:14"> </span>
-            <span style="--i:15">T</span>
-            <span style="--i:16">ư</span>
-            <span style="--i:17">ờ</span>
-            <span style="--i:18">n</span>
-            <span style="--i:19">g</span>
-            <span style="--i:20"> </span>
-            <span style="--i:21">V</span>
-            <span style="--i:22">y</span>
-        </a>
-    </h2>
+    <div class="vertical-name">
+        <!-- dòng 1: Trương -->
+        <div class="name-block">
+            <span>Trương</span>
+        </div>
+        <!-- dòng 2: Nguyễn -->
+        <div class="name-block">
+            <span>Nguyễn</span>
+        </div>
+        <!-- dòng 3: Trường -->
+        <div class="name-block">
+            <span>Trường</span>
+        </div>
+        <!-- dòng 4: Vy -->
+        <div class="name-block">
+            <span>Vy</span>
+        </div>
+    </div>
 </body>
 </html>
