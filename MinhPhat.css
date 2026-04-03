@@ -1,0 +1,30 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #111;
+}
+h2 a{
+    text-decoration: none;
+    display: flex;
+    color: transparent;
+    font-size: 5vw;
+}
+h2 span{
+    animation: animate 3s linear infinite;
+    animation-delay: calc(0.2s*var(--i));
+}
+@keyframes animate{
+    30%, 70%{
+        color: #fff;
+        filter: hue-rotate(360deg);
+        text-shadow: 0 0 10px #00eeff, 0 0 20px #00eeff;
+    }
+}

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Trương Nguyễn Tường Vy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        /* CSS style to keep the animated letter effect intact */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a0f1e, #0a1a2a);
+            font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, 'Montserrat', sans-serif;
+        }
+
+        h2 {
+            position: relative;
+            font-size: clamp(1.8rem, 8vw, 4.2rem);
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0;
+            padding: 0 20px;
+        }
+
+        h2 a {
+            position: relative;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        h2 a span {
+            position: relative;
+            display: inline-block;
+            color: #fff;
+            animation: waveGlow 1.5s ease-in-out infinite;
+            animation-delay: calc(0.05s * var(--i));
+            text-shadow: 0 0 5px #00a6ff, 0 0 15px #00e0ff, 0 0 25px #00ccff;
+            transition: all 0.2s ease;
+            font-weight: 700;
+        }
+
+        /* Elegant wave + floating animation */
+        @keyframes waveGlow {
+            0%, 100% {
+                transform: translateY(0px);
+                text-shadow: 0 0 5px #00a6ff, 0 0 10px #00e0ff;
+            }
+            50% {
+                transform: translateY(-12px);
+                text-shadow: 0 0 15px #ff66cc, 0 0 25px #ff44aa, 0 0 35px #ff88ff;
+                color: #fff5e0;
+            }
+        }
+
+        /* subtle hover effect on whole name */
+        h2 a:hover span {
+            animation-play-state: running;
+            filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.6));
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 550px) {
+            h2 a span {
+                animation-duration: 1.2s;
+            }
+            h2 {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>
+        <a href="#">
+            <!-- Updated name: Trương Nguyễn Tường Vy -->
+            <span style="--i:1">T</span>
+            <span style="--i:2">r</span>
+            <span style="--i:3">ư</span>
+            <span style="--i:4">ơ</span>
+            <span style="--i:5">n</span>
+            <span style="--i:6">g</span>
+            <span style="--i:7"> </span>
+            <span style="--i:8">N</span>
+            <span style="--i:9">g</span>
+            <span style="--i:10">u</span>
+            <span style="--i:11">y</span>
+            <span style="--i:12">ễ</span>
+            <span style="--i:13">n</span>
+            <span style="--i:14"> </span>
+            <span style="--i:15">T</span>
+            <span style="--i:16">ư</span>
+            <span style="--i:17">ờ</span>
+            <span style="--i:18">n</span>
+            <span style="--i:19">g</span>
+            <span style="--i:20"> </span>
+            <span style="--i:21">V</span>
+            <span style="--i:22">y</span>
+        </a>
+    </h2>
+</body>
+</html>
