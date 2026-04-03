@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Trương Nguyễn Trường Vy · Dọc</title>
+    <title>Trương Nguyễn Trường Vy · Hiệu ứng nhấp nháy</title>
     <style>
         * {
             margin: 0;
@@ -13,17 +13,16 @@
         }
 
         body {
-            /* nền gradient tinh tế, nhẹ nhàng nhưng hiện đại */
-            background: radial-gradient(circle at 20% 30%, #0b1120, #07111f);
+            background: radial-gradient(circle at 20% 30%, #0b1120, #03070f);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: system-ui, 'Segoe UI', 'SF Pro Text', 'Poppins', 'Montserrat', sans-serif;
-            padding: 24px 16px;
+            font-family: system-ui, 'Segoe UI', 'Poppins', 'Montserrat', sans-serif;
+            padding: 20px 16px;
         }
 
-        /* container dọc chính – chiếm toàn bộ chiều cao màn hình nhỏ (điện thoại) */
+        /* Container dọc - mỗi từ một hàng */
         .vertical-name {
             display: flex;
             flex-direction: column;
@@ -31,98 +30,89 @@
             justify-content: center;
             gap: 1.2rem;
             width: 100%;
-            max-width: 380px;
+            max-width: 400px;
             margin: 0 auto;
             padding: 20px 0;
+            position: relative;
         }
 
-        /* mỗi dòng là 1 từ (khối chữ) */
-        .name-block {
-            display: block;
-            text-align: center;
-            font-weight: 700;
-            letter-spacing: 2px;
-            width: 100%;
-            transition: all 0.2s ease;
+        /* Mỗi dòng là 1 từ, nhưng bên trong là các span để có hiệu ứng từng chữ */
+        .name-row {
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.08rem;
         }
 
-        /* hiệu ứng chữ riêng cho từng dòng, giống phong cách lung linh nhưng không rối */
-        .name-block span {
+        /* Mỗi ký tự (chữ cái) riêng lẻ - giữ nguyên hiệu ứng nhấp nháy giống bản gốc */
+        .char {
+            position: relative;
             display: inline-block;
-            font-size: clamp(2.8rem, 12vw, 5rem);
-            background: linear-gradient(135deg, #ffffff, #c0e0ff, #a0d0ff);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 12px rgba(0, 180, 255, 0.5);
-            transition: transform 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            font-size: clamp(2.5rem, 11vw, 4.8rem);
             font-weight: 800;
-            letter-spacing: 1px;
+            color: #fff;
+            animation: waveGlow 1.5s ease-in-out infinite;
+            animation-delay: calc(0.05s * var(--i));
+            text-shadow: 0 0 5px #00a6ff, 0 0 12px #00e0ff;
+            transition: all 0.2s ease;
+            letter-spacing: 2px;
+            white-space: pre;
         }
 
-        /* hiệu ứng nhẹ khi chạm / hover (trên mobile vẫn có active) */
-        .name-block:active span {
-            transform: scale(0.97);
-            text-shadow: 0 0 20px #6bc6ff;
+        /* Hiệu ứng nhấp nháy + bay lên nhẹ (giống yêu cầu) */
+        @keyframes waveGlow {
+            0%, 100% {
+                transform: translateY(0px);
+                text-shadow: 0 0 5px #00a6ff, 0 0 10px #00e0ff;
+            }
+            50% {
+                transform: translateY(-10px);
+                text-shadow: 0 0 15px #ff66cc, 0 0 25px #ff44aa, 0 0 35px #ff88ff;
+                color: #fff5e0;
+            }
         }
 
-        /* riêng dòng "Vy" có thể điểm nhấn nhẹ */
-        .name-block:last-child span {
-            background: linear-gradient(135deg, #ffdfb8, #ffb8e0, #ff9ed0);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 10px #ff8dd0;
+        /* Khi chạm/hover vào từng dòng, tăng tốc hiệu ứng hoặc giữ nguyên nhưng thêm vui mắt */
+        .name-row:hover .char {
+            animation-play-state: running;
+            filter: drop-shadow(0 0 6px rgba(0, 255, 255, 0.5));
         }
 
-        /* decoration: dấu chấm hoặc đường kẻ mờ giúp căn chỉnh thị giác */
-        .vertical-name::before {
-            content: '✦';
-            font-size: 1.4rem;
-            color: rgba(100, 200, 255, 0.4);
-            letter-spacing: 4px;
-            margin-bottom: 0.2rem;
-        }
-
-        .vertical-name::after {
-            content: '✦';
-            font-size: 1.4rem;
-            color: rgba(100, 200, 255, 0.4);
-            margin-top: 0.2rem;
-        }
-
-        /* tăng khoảng cách giữa các chữ cho dễ nhìn, phù hợp khung dọc */
-        @media (max-width: 480px) {
+        /* Điều chỉnh khoảng cách trên mobile */
+        @media (max-width: 550px) {
             .vertical-name {
                 gap: 0.9rem;
             }
-            .name-block span {
-                font-size: clamp(2.5rem, 10vw, 4rem);
+            .char {
+                font-size: clamp(2.2rem, 9vw, 3.8rem);
+                animation-duration: 1.3s;
             }
         }
 
-        /* đảm bảo trên màn hình rất nhỏ vẫn đẹp */
-        @media (max-width: 360px) {
+        @media (max-width: 380px) {
+            .char {
+                font-size: clamp(1.8rem, 8vw, 3rem);
+            }
             .vertical-name {
                 gap: 0.7rem;
             }
         }
 
-        /* thêm hiệu ứng fade-in cho từng dòng khi load */
-        .name-block {
+        /* Thêm hiệu ứng xuất hiện mượt cho từng dòng */
+        .name-row {
             opacity: 0;
-            animation: slideUpFade 0.45s ease forwards;
+            animation: fadeSlideUp 0.5s ease forwards;
         }
+        .name-row:nth-child(1) { animation-delay: 0.05s; }
+        .name-row:nth-child(2) { animation-delay: 0.15s; }
+        .name-row:nth-child(3) { animation-delay: 0.25s; }
+        .name-row:nth-child(4) { animation-delay: 0.35s; }
 
-        .name-block:nth-child(1) { animation-delay: 0.05s; }
-        .name-block:nth-child(2) { animation-delay: 0.15s; }
-        .name-block:nth-child(3) { animation-delay: 0.25s; }
-        .name-block:nth-child(4) { animation-delay: 0.35s; }
-
-        @keyframes slideUpFade {
+        @keyframes fadeSlideUp {
             0% {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(18px);
             }
             100% {
                 opacity: 1;
@@ -130,7 +120,21 @@
             }
         }
 
-        /* tuỳ chọn background mượt hơn, không gây chói */
+        /* Dấu trang trí nhẹ đầu cuối */
+        .vertical-name::before {
+            content: '✨';
+            font-size: 1.3rem;
+            opacity: 0.6;
+            margin-bottom: 6px;
+            letter-spacing: 6px;
+        }
+        .vertical-name::after {
+            content: '✨';
+            font-size: 1.3rem;
+            opacity: 0.6;
+            margin-top: 6px;
+        }
+
         html {
             -webkit-tap-highlight-color: transparent;
         }
@@ -138,21 +142,40 @@
 </head>
 <body>
     <div class="vertical-name">
-        <!-- dòng 1: Trương -->
-        <div class="name-block">
-            <span>Trương</span>
+        <!-- Dòng 1: Trương -->
+        <div class="name-row">
+            <span class="char" style="--i:1">T</span>
+            <span class="char" style="--i:2">r</span>
+            <span class="char" style="--i:3">ư</span>
+            <span class="char" style="--i:4">ơ</span>
+            <span class="char" style="--i:5">n</span>
+            <span class="char" style="--i:6">g</span>
         </div>
-        <!-- dòng 2: Nguyễn -->
-        <div class="name-block">
-            <span>Nguyễn</span>
+
+        <!-- Dòng 2: Nguyễn -->
+        <div class="name-row">
+            <span class="char" style="--i:1">N</span>
+            <span class="char" style="--i:2">g</span>
+            <span class="char" style="--i:3">u</span>
+            <span class="char" style="--i:4">y</span>
+            <span class="char" style="--i:5">ễ</span>
+            <span class="char" style="--i:6">n</span>
         </div>
-        <!-- dòng 3: Trường -->
-        <div class="name-block">
-            <span>Trường</span>
+
+        <!-- Dòng 3: Trường -->
+        <div class="name-row">
+            <span class="char" style="--i:1">T</span>
+            <span class="char" style="--i:2">r</span>
+            <span class="char" style="--i:3">ư</span>
+            <span class="char" style="--i:4">ờ</span>
+            <span class="char" style="--i:5">n</span>
+            <span class="char" style="--i:6">g</span>
         </div>
-        <!-- dòng 4: Vy -->
-        <div class="name-block">
-            <span>Vy</span>
+
+        <!-- Dòng 4: Vy -->
+        <div class="name-row">
+            <span class="char" style="--i:1">V</span>
+            <span class="char" style="--i:2">y</span>
         </div>
     </div>
 </body>
